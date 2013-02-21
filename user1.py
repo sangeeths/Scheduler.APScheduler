@@ -45,7 +45,6 @@ class Test:
                          timedelta(seconds=self.__retry_timeout)
             self.scheduler.at(self.start, alarm_time)
             self.scheduler.start()
-
     def stop(self):
         if self.__running:
             self.__running = False
@@ -53,12 +52,10 @@ class Test:
             if self.scheduler.is_running():
                 self.scheduler.stop()
             print 'Good bye!!'
-
     def transfer(self):
         print 'Data transfer starting now.. ', datetime.now()
         time.sleep(2) # sleep for 2 seconds
         print 'Data transfer done! ', datetime.now()
-
 
 
 if __name__ == '__main__':

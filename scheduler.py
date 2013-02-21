@@ -1,7 +1,19 @@
+"""
+Scheduler
+
+A wrapper for APScheduler which provides
+the following functions (and its decorators):
+
+ [1] at()    : execute func at given date & time 
+ [2] every() : execute func every w, d, h, s, m 
+ [3] after() : execute func after given date & time 
+ [4] cron()  : execute func based on various expressions 
+               on each field - y, m, d, w, dow, h, m, s 
+"""
+
 from apscheduler.scheduler import SchedulerAlreadyRunningError
 from apscheduler.scheduler import Scheduler as APScheduler
-from datetime import datetime, date, time, timedelta
-import time
+from datetime import datetime, timedelta
 import logging
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # #
