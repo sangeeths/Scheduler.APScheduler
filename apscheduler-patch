@@ -1,0 +1,38 @@
+diff -r d2f00d9ac019 apscheduler/util.py
+--- a/apscheduler/util.py   Sun Dec 30 00:31:05 2012 +0200
++++ b/apscheduler/util.py   Fri Feb 22 00:56:54 2013 +0530
+@@ -10,7 +10,8 @@
+ __all__ = ('asint', 'asbool', 'convert_to_datetime', 'timedelta_seconds',
+            'time_difference', 'datetime_ceil', 'combine_opts',
+            'get_callable_name', 'obj_to_ref', 'ref_to_obj', 'maybe_ref',
+-           'to_unicode', 'iteritems', 'itervalues', 'xrange')
++           'to_unicode', 'iteritems', 'itervalues', 'xrange',
++           'get_instance_name')
+ 
+ 
+ def asint(text):
+@@ -133,6 +134,15 @@
+     return subconf
+ 
+ 
++def get_instance_name(module, instance):
++    """ 
++    Returns the variable name of the given instance. 
++    """
++    for name in dir(module):
++        if getattr(module, name) == instance:
++            return name
++
++
+ def get_callable_name(func):
+     """
+     Returns the best available display name for the given function/callable.
+@@ -145,7 +155,7 @@
+             clsname = getattr(f_self, '__qualname__', None) or f_self.__name__
+             return '%s.%s' % (clsname, func.__name__)
+         # bound method
+-        return '%s.%s' % (f_self.__class__.__name__, func.__name__)
++        return '%s.%s' % (get_instance_name(__import__(f_self.__module__), f_self), func.__name__)
+ 
+     if hasattr(func, '__call__'):
+         if hasattr(func, '__name__'):
