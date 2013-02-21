@@ -147,9 +147,6 @@ __jbs_table = 'apscheduler.jobstore.%s.tablename' % __jbs_name
 __jbs_sqlalchemy = 'apscheduler.jobstores.sqlalchemy_store:SQLAlchemyJobStore'
 
 # APScheduler (preferred) default configuration
-# NOTE: do NOT use this config for now. 
-#       for more info, refer readme file.
-# NOTE: currently, persistant job storage is not supported
 _g_aps_default_sql_config = {
     'apscheduler.misfire_grace_time' : 1,
     'apscheduler.coalesce'           : True,
@@ -158,15 +155,6 @@ _g_aps_default_sql_config = {
     __jbs_class : __jbs_sqlalchemy,
     __jbs_url   : __db_url,
     __jbs_table : __jbs_tn
-}
-
-# NOTE: use the following config for now (TEMPORARY)
-#       it is RAMJobStore and not SQLAlchemyJobStore
-_g_aps_default_ram_config = {
-    'apscheduler.misfire_grace_time' : 1,
-    'apscheduler.coalesce'           : True,
-    'apscheduler.daemonic'           : True,
-    'apscheduler.standalone'         : True,
 }
 #
 # End of Exception Classes
@@ -186,11 +174,7 @@ class Scheduler:
     """
 
     # Handle to APScheduler
-    # NOTE: do not use SQL config for now; use RAM config.
-    #       (TEMPORARY)
-    # 
-    #__aps = APScheduler(_g_aps_default_sql_config)
-    __aps = APScheduler(_g_aps_default_ram_config)
+    __aps = APScheduler(_g_aps_default_sql_config)
 
     def __init__(self, aps_config={}):
         self.configure(aps_config) 
